@@ -9,17 +9,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <h1>RPi Web Interface</h1>
-   
-    <h2>Existing files</h2>
-    {% for file in files %}
-        file	
-    {% endfor %}
-    <div class="row"><div class="col-md-2">
-        <form method="POST">
-            <input name = "file_name">
-            <input class="btn btn-block btn-lg btn-primary" value="Create file" type = "submit">
+<body>   
+    <div class="container"><div class="row">
+        <h1>RPi Web Interface</h1>
+
+        <div class="row"><div class="col-md-2">
+            <h3>Existing files:</h3>
+            {% for file in files %}
+	        <p>{{ file }}</p>
+            {% endfor %}
+        </div></div>
+
+        <div class="row"><div class="col-md-2">
+            <form method="POST">
+                <p><input name = "file_name"></p>
+                <p><input class="btn btn-block btn-lg btn-primary" value="Create file" type = "submit"></p>
+        </div></div>
     </div></div>
 </body>
 </html>
