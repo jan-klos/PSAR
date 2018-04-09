@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import os
 
 app = Flask(__name__)
-path = "../files/"
+path = "/home/pi/files/"
 
 @app.route("/")
 def main():
