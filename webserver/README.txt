@@ -17,7 +17,7 @@ templates/common/ - shared html code
 
 static/ - basically files visible for templates
 static/styles/custom.css - css tweaks
-static/img/ - folder where images are temporarily stored in order to display them
+static/img/ - folder where images are temporarily stored in order to display them (automatically created)
 
 ---------------------------------
 
