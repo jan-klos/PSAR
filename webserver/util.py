@@ -16,7 +16,8 @@ def get_file_type(file):
         return "txt"
 
 def get_file_dict(file_name):
-    return { "type" : get_file_type(file_name), "name" : file_name, "size" : get_file_size, "path" : settings.path + file_name }
+    return { "type" : get_file_type(file_name), "name" : file_name, "size" : get_file_size(settings.path + file_name), 
+             "path" : settings.path + file_name }
 
 def get_file_dict_list(file_list):
     file_dict_list = []

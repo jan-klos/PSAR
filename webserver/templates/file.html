@@ -1,28 +1,16 @@
-<!DOCTYPE html>
-<head>
-    <title>RPi Web Interface</title>
-    <link rel="icon" href="data:;base64,iVBORwoKGgo=">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</head>
+{% include "common/header.html" %}
 
 <body>
-    <div class="jumbotron text-center">
-        <h1>RPi Web Interface</h1>
-        <p>PSAR 2018</p>
-    </div>
+    {% include "common/banner.html" %}
 
-    <div class="container">
-        <div class="col-xs-4 col-md-3">
-            <a href="/" class="btn btn-block btn-lg btn-primary">Back</a><br>
+    <div class="panel panel panel-default container-fluid">
+        <div class="panel-heading row">
+            <div class="col-xs-4 col-md-4"><h3>File name: {{ file.name }}</h3></div>
+            <div class="col-xs-4 col-md-4 text-center"><h3>File size: {{ file.size }} bytes</h3></div>
+            <div class="col-xs-4 col-md-4"><a href="/" class="btn pull-right btn-lg btn-primary">Back</a><br></div>
         </div>
-        <div class="col-xs-12 col-md-12">
-            <h3>{{ file.name }}</h3>
 
+        <div class="panel-body row">
             {% if file.type == "img" %}
                 <img src="{{ url_for("static", filename="img/" + file.name)}}" class="img-responsive" alt="{{ file.path }}"> 
             {% else %}
@@ -30,8 +18,8 @@
                 <p>{{ file_content }}</p>
                 {% endautoescape %}
             {% endif %}
-
         </div>
     </div>
+
 </body>
 </html>
