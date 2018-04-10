@@ -4,6 +4,9 @@ import os
 app = Flask(__name__)
 path = "/home/pi/files/"
 
+if not os.path.exists(path):
+    os.makedirs(path)
+
 @app.route("/")
 def main():
     files = os.listdir(path)
