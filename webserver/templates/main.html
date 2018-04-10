@@ -10,21 +10,44 @@
 </head>
 
 <body>   
-    <div class="container"><div class="row">
+    <div class="jumbotron text-center">
         <h1>RPi Web Interface</h1>
+        <p>PSAR 2018</p>
+    </div>
 
-        <div class="row"><div class="col-md-2">
-            <h3>Existing files:</h3>
-            {% for file in files %}
-	        <p>{{ file }}</p>
-            {% endfor %}
-        </div></div>
+    <div class="container">
+    <div class="row">
+    <div class="col-xs-6 col-md-6">
+        <h3> Create a new file</h3>
+        <form class="form-horizontal" method="POST">
+            
+	    <div class="form-group">
+	        <label class="control-label col-sm-2" for="fn">File name:</label>
+		    <div class="col-xs-12 col-md-8">
+	            <input type="text" id="fn" name="file_name" placeholder="Enter file name">
+	        </div>
+        </div class="form-group">
 
-        <div class="row"><div class="col-md-2">
-            <form method="POST">
-                <p><input name = "file_name"></p>
-                <p><input class="btn btn-block btn-lg btn-primary" value="Create file" type = "submit"></p>
-        </div></div>
-    </div></div>
+	    <div class="form-group">
+            <label class="control-label col-sm-2" for="fc">File content:</label>
+            <div class="col-xs-12 col-md-8">
+		        <textarea id="fc" name="file_content" placeholder="Enter file content"></textarea>
+	        </div>
+        </div class="form-group">
+
+	    <div class="form-group">
+	        <div class="col-sm-offset-2 col-xs-4 col-md-3">
+                <input class="btn btn-lg btn-primary" value="Create file" type="submit">
+            </div>
+        </div class="form-group">
+    </div>
+    
+    <div class="col-xs-6 col-md-6">
+        <h3>Existing files:</h3>
+        {% for file in files %}
+        <a href="/{{file}}" class="btn btn-lg btn-info">{{ file }}</a>
+        {% endfor %}
+    </div>
+    </div>
 </body>
 </html>
