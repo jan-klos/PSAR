@@ -6,7 +6,7 @@ Shows all files in /home/pi/files. Allows to create new ones.
 
 ---------------------------------
 
-Dependences:
+Dependencies:
 
 Flask
 sudo apt-get install python-pip
