@@ -3,17 +3,17 @@ import os, util, settings
 
 app = Flask(__name__)
 
-if not os.path.exists(settings.path):
-    os.makedirs(settings.path)
+print settings.current_path
+if not os.path.exists(settings.files_path):
+    os.makedirs(settings.files_path)
 
 # folder for temporary image files storing
-if not os.path.exists("static/img/"):
-    os.makedirs("static/img/")
+util.create_static("/static/img")
 
 @app.route("/")
 def main():
     util.clear_static() # removes temporary image files
-    file_list = os.listdir(settings.path)
+    file_list = os.listdir(settings.files_path)
     file_dict_list = util.get_file_dict_list(file_list)
     template_data = { "files" : file_dict_list }
     return render_template("main.html", **template_data)

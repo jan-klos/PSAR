@@ -16,8 +16,8 @@ def get_file_type(file):
         return "txt"
 
 def get_file_dict(file_name):
-    return { "type" : get_file_type(file_name), "name" : file_name, "size" : get_file_size(settings.path + file_name), 
-             "path" : settings.path + file_name }
+    return { "type" : get_file_type(file_name), "name" : file_name, "size" : get_file_size(settings.files_path + file_name), 
+             "path" : settings.files_path + file_name }
 
 def get_file_dict_list(file_list):
     file_dict_list = []
@@ -26,17 +26,21 @@ def get_file_dict_list(file_list):
     return file_dict_list
 
 def create_file(file_name, file_content):    
-    file = open(settings.path + file_name, "w+")
+    file = open(settings.files_path + file_name, "w+")
     file.write(file_content)
 
 def get_file_content(file_name):
-    with open(settings.path + file_name) as file:
+    with open(settings.files_path + file_name) as file:
         file_content = file.read().replace("\n", "<br>")
     return file_content
 
 def copy_file_to_static(file_name):
-    shutil.copyfile(settings.path + file_name, "static/img/" + file_name)
+    shutil.copyfile(settings.files_path + file_name, settings.current_path + "/static/img/" + file_name)
+
+def create_static(path):
+    if not os.path.exists(settings.current_path + "/static/img/"):
+        os.makedirs(settings.current_path + "/static/img/")
 
 def clear_static():
-    shutil.rmtree("static/img/")
-    os.makedirs("static/img/")
+    shutil.rmtree(settings.current_path + "/static/img/")
+    create_static("/static/img")
