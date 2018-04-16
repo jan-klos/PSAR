@@ -3,7 +3,6 @@ import os, util, settings
 
 app = Flask(__name__)
 
-print settings.current_path
 if not os.path.exists(settings.files_path):
     os.makedirs(settings.files_path)
 
