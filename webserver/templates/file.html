@@ -5,9 +5,14 @@
 
     <div class="panel panel panel-default container-fluid">
         <div class="panel-heading row">
-            <div class="col-xs-4 col-md-4"><h3>File name: {{ file.name }}</h3></div>
-            <div class="col-xs-4 col-md-4 text-center"><h3>File size: {{ file.size }} bytes</h3></div>
-            <div class="col-xs-4 col-md-4"><a href="/" class="btn pull-right btn-lg btn-primary">Back</a><br></div>
+            <div class="col-xs-3 col-md-3"><h3>File name: {{ file.name }} </h3></div>
+            <div class="col-xs-3 col-md-3 text-center"><h3>File size: {{ file.size }} bytes</h3></div>
+            <div class="col-xs-3 col-md-3">
+                <form class="form-horizontal" method="POST"><div class="form-group">
+                    <input class="input-lg" type="text" id="sa" name="send_address" placeholder="Enter address"> <input class="btn btn-lg btn-primary" value="Send" type="submit">
+                </div></form>
+            </div>
+            <div class="col-xs-3 col-md-3"><a href="/" class="btn pull-right btn-lg btn-primary">Back</a></div>
         </div>
 
         <div class="panel-body row">

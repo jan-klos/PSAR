@@ -1,3 +1,4 @@
 *.pyc
 webserver/static/img/
 webserver/static/img/*
+.idea/*

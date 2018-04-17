@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import os, util, settings
 
 app = Flask(__name__)
@@ -24,7 +24,14 @@ def create_file():
     util.create_file(file_name, file_content)	
     return main()
 
-@app.route("/<file_name>", methods = ["GET"])
+@app.route("/files/<file_name>", methods = ["POST"])
+def send_file(file_name):
+    send_address =  request.form["send_address"]
+    print "send_file() \nfile_name: {0}, address: {1}".format(file_name, send_address)
+    #proxy
+    return redirect("/", code = 302)
+
+@app.route("/files/<file_name>", methods = ["GET"])
 def show_file(file_name):
     file_dict = util.get_file_dict(file_name)
     if file_dict["type"] == "img":
@@ -33,6 +40,6 @@ def show_file(file_name):
     else:
         template_data = { "file" : file_dict, "file_content" : util.get_file_content(file_name) }
     return render_template("file.html", **template_data)
-    
+
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 80, debug = True)
