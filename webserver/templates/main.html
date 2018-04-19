@@ -5,7 +5,7 @@
 
     <div class="container">
     <div class="row">
-    <div class="col-xs-7 col-md-8">
+    <div class="col-xs-4 col-md-4">
         <h3> Create a new file</h3>
         <form class="form-horizontal" method="POST">
             
@@ -14,28 +14,47 @@
             <div class="col-xs-12 col-md-8">
                 <input type="text" id="fn" name="file_name" placeholder="Enter file name">
             </div>
-        </div class="form-group">
+        </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2" for="fc">File content:</label>
             <div class="col-xs-12 col-md-8">
                 <textarea id="fc" name="file_content" placeholder="Enter file content"></textarea>
             </div>
-        </div class="form-group">
+        </div>
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-xs-4 col-md-3">
                 <input class="btn btn-lg btn-primary" value="Create file" type="submit">
             </div>
-        </div class="form-group">
+        </div>
+        </form>
+    </div>
+
+    <div class="col-xs-4 col-md-4">
+        <h3>Upload file</h3>
+        <form class="form-horizontal" method="POST">
+
+        <div class="btn-group">
+            <label class="btn btn-lg btn-default" for="uf">
+                <input id="uf" type="file" style="display:none"
+                onchange="$('#uf_file_name').html((this.files[0].name.length > 24) ? this.files[0].name.substring(0, 20) + '...' + this.files[0].name.split('.').pop() : this.files[0].name)">
+                Choose file
+            </label>
+            <input class="btn btn-lg btn-primary" value="Upload file" type="submit">
+        </div>
+
+        <br><h4><span class='label label-default' id="uf_file_name"></span></h4>
+
+        </form>
     </div>
     
-    <div class="col-xs-5 col-md-4">
+    <div class="col-xs-4 col-md-4">
         <h3>Existing files:</h3>
         <div type="btn-toolbar">
         {% for file in files %}
             {% if file.type == "img" %}
-                <a href="files/{{file.name}}" margin="2px" class="btn btn-lg btn-warning">{{ file.name }}</a>
+                <a href="files/{{file.name}}" class="btn btn-lg btn-warning">{{ file.name }}</a>
             {% elif file.type == "music" %}
                 <a href="files/{{file.name}}" class="btn btn-lg btn-success">{{ file.name }}</a>
             {% elif file.type == "video" %}  
@@ -46,6 +65,7 @@
         {% endfor %}
         </div>
 
+    </div>
     </div>
     </div>
 </body>
