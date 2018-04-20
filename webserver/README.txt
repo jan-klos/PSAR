@@ -2,7 +2,7 @@ WEB INTERFACE FOR RASPBERRY PI
 
 Python + Flask + Bootstrap CSS
 
-Shows all files in /home/pi/files. Allows to create new ones. Can be tested on any GNU/Linux machine.
+Shows all files in /home/pi/files. Allows to create or upload new ones. Can be tested on any GNU/Linux machine.
 
 ---------------------------------
 
@@ -17,7 +17,7 @@ templates/common/ - shared html code
 
 static/ - basically files visible for templates
 static/styles/custom.css - css tweaks
-static/img/ - folder where images are temporarily stored in order to display them (automatically created)
+static/tmp/ - folder where images and pdf files are temporarily stored in order to display them (automatically created)
 
 ---------------------------------
 

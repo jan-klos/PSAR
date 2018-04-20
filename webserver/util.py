@@ -12,8 +12,10 @@ def get_file_type(file):
     elif file_extension in (".mp3", ".flac"):
         return "music"
     elif file_extension in (".mp4", ".avi", ".webm", ".gif"):
-        return "video"     
-    else:
+        return "video"
+    elif file_extension == ".pdf":
+        return "pdf"
+    elif file_extension in ("txt", ""):
         return "txt"
 
 def get_file_dict(file_name):
@@ -33,11 +35,9 @@ def create_file(file_name, file_content):
     file.write(file_content)
 
 def upload_file(file):
-    # if file.filename == '':
-    #     return redirect(request.url)
-    print "raz"
+    if file.filename == '':
+        return
     if file and is_allowed_extension(file.filename):
-        print "dupa"
         filename = secure_filename(file.filename)
         file.save(os.path.join(settings.FILES_PATH, filename))
 
@@ -47,15 +47,15 @@ def get_file_content(file_name):
     return file_content
 
 def copy_file_to_static(file_name):
-    shutil.copyfile(settings.FILES_PATH + file_name, settings.CURRENT_PATH + "/static/img/" + file_name)
+    shutil.copyfile(settings.FILES_PATH + file_name, settings.CURRENT_PATH + "/static/tmp/" + file_name)
 
 def create_static(path):
-    if not os.path.exists(settings.CURRENT_PATH + "/static/img/"):
-        os.makedirs(settings.CURRENT_PATH + "/static/img/")
+    if not os.path.exists(settings.CURRENT_PATH + "/static/tmp/"):
+        os.makedirs(settings.CURRENT_PATH + "/static/tmp/")
 
 def clear_static():
-    shutil.rmtree(settings.CURRENT_PATH + "/static/img/")
-    create_static("/static/img")
+    shutil.rmtree(settings.CURRENT_PATH + "/static/tmp/")
+    create_static("/static/tmp")
 
 def is_allowed_extension(file_name):
     return '.' in file_name and file_name.rsplit('.', 1)[1].lower() in settings.ALLOWED_EXTENSIONS

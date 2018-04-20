@@ -36,7 +36,7 @@ def send_file(file_name):
 @app.route("/files/<file_name>", methods = ["GET"])
 def show_file(file_name):
     file_dict = util.get_file_dict(file_name)
-    if file_dict["type"] == "img":
+    if file_dict["type"] in ("img", "pdf"):
         util.copy_file_to_static(file_name)
         template_data = { "file" : file_dict}
     else:
