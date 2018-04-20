@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 import os, util, settings
 
 app = Flask(__name__)
@@ -19,14 +19,16 @@ def main():
     
 @app.route("/", methods = ["POST"])
 def create_file():
-    file_name =  request.form["file_name"]
-    file_content = request.form["file_content"]
-    util.create_file(file_name, file_content)	
+    if "create_file_submit" in request.form:
+        util.create_file(request.form["file_name"], request.form["file_content"])
+    elif "upload_file_submit" in request.form:
+        util.upload_file(request.files["file"])
     return main()
 
 @app.route("/files/<file_name>", methods = ["POST"])
 def send_file(file_name):
     send_address =  request.form["send_address"]
+    #proxy
     print "send_file() \nfile_name: {0}, address: {1}".format(file_name, send_address)
     #proxy
     return redirect("/", code = 302)

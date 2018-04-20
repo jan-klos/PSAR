@@ -1,4 +1,5 @@
 import os, shutil, settings
+from werkzeug.utils import secure_filename
 
 def get_file_size(file):
     return os.path.getsize(file)
@@ -25,9 +26,20 @@ def get_file_dict_list(file_list):
         file_dict_list.append(get_file_dict(file))
     return file_dict_list
 
-def create_file(file_name, file_content):    
+def create_file(file_name, file_content):
+    if file_name == "":
+        return
     file = open(settings.FILES_PATH + file_name, "w+")
     file.write(file_content)
+
+def upload_file(file):
+    # if file.filename == '':
+    #     return redirect(request.url)
+    print "raz"
+    if file and is_allowed_extension(file.filename):
+        print "dupa"
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(settings.FILES_PATH, filename))
 
 def get_file_content(file_name):
     with open(settings.FILES_PATH + file_name) as file:
