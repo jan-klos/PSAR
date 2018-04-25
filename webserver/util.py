@@ -29,14 +29,10 @@ def get_file_dict_list(file_list):
     return file_dict_list
 
 def create_file(file_name, file_content):
-    if file_name == "":
-        return
     file = open(settings.FILES_PATH + file_name, "w+")
     file.write(file_content)
 
 def upload_file(file):
-    if file.filename == '':
-        return
     if file and is_allowed_extension(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(settings.FILES_PATH, filename))

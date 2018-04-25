@@ -18,18 +18,18 @@ def main():
     return render_template("main.html", **template_data)
     
 @app.route("/", methods = ["POST"])
-def create_file():
-    if "create_file_submit" in request.form:
+def add_file():
+    if "create_file_submit" in request.form and request.form["file_name"] != "":
         util.create_file(request.form["file_name"], request.form["file_content"])
-    elif "upload_file_submit" in request.form:
+    elif "upload_file_submit" in request.form and request.files["file"].filename != "":
         util.upload_file(request.files["file"])
     return main()
 
 @app.route("/files/<file_name>", methods = ["POST"])
 def send_file(file_name):
-    send_address =  request.form["send_address"]
+    send_address = request.form["send_address"]
     #proxy
-    print "send_file() \nfile_name: {0}, address: {1}".format(file_name, send_address)
+    print "send_file(): \n    file_name: {0} \n    address: {1}".format(file_name, send_address)
     #proxy
     return redirect("/", code = 302)
 

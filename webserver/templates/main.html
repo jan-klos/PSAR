@@ -53,13 +53,13 @@
         <div type="btn-toolbar">
         {% for file in files %}
             {% if file.type == "img" %}
-                <a href="files/{{file.name}}" class="btn btn-lg btn-warning">{{ file.name }}</a>
+                <a href="/files/{{file.name}}" class="btn btn-lg btn-warning">{{ file.name }}</a>
             {% elif file.type == "music" %}
-                <a href="files/{{file.name}}" class="btn btn-lg btn-success">{{ file.name }}</a>
+                <a href="/files/{{file.name}}" class="btn btn-lg btn-success">{{ file.name }}</a>
             {% elif file.type == "video" %}  
-                <a href="files/{{file.name}}" class="btn btn-lg btn-danger">{{ file.name }}</a>
+                <a href="/files/{{file.name}}" class="btn btn-lg btn-danger">{{ file.name }}</a>
             {% else %}
-                <a href="files/{{file.name}}" class="btn btn-lg btn-info">{{ file.name }}</a>
+                <a href="/files/{{file.name}}" class="btn btn-lg btn-info">{{ file.name }}</a>
             {% endif %}
         {% endfor %}
         </div>
