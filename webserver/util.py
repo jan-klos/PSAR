@@ -17,7 +17,7 @@ def get_file_type(file):
         return "video"
     elif file_extension == ".pdf":
         return "pdf"
-    elif file_extension in ("txt", ""):
+    elif file_extension in (".txt", ""):
         return "txt"
 
 

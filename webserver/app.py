@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file
 import socket  # for IP address testing
 import os
 import util
@@ -39,13 +39,16 @@ def add_file():
 
 
 @app.route("/files/<file_name>", methods=["POST"])
-def send_file(file_name):
-    send_address = request.form["send_address"]
-    try:
-        socket.inet_pton(socket.AF_INET, send_address)
-    except socket.error:
-        return show_file(file_name, error="Incorrect IP address")
-    util.write_send_info(send_address, file_name)
+def my_send_file(file_name):
+    if "send_file_submit" in request.form:
+        send_address = request.form["send_address"]
+        try:
+            socket.inet_pton(socket.AF_INET, send_address)
+        except socket.error:
+            return show_file(file_name, error="Incorrect IP address")
+        util.write_send_info(send_address, file_name)
+    elif "download_file_submit" in request.form:
+        return send_file(settings.FILES_PATH + file_name, attachment_filename=file_name, as_attachment=True)
     return redirect("/", code=302)
 
 
