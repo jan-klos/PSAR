@@ -34,8 +34,8 @@ def get_file_dict_list(file_list):
 
 
 def create_file(file_name, file_content):
-    file = open(settings.FILES_PATH + file_name, "w+")
-    file.write(file_content)
+    with open(settings.FILES_PATH + file_name, "w+") as file:
+        file.write(file_content)
 
 
 def upload_file(file):
@@ -66,3 +66,8 @@ def clear_tmp():
 
 def is_allowed_extension(file_name):
     return '.' in file_name and file_name.rsplit('.', 1)[1].lower() in settings.ALLOWED_EXTENSIONS
+
+
+def write_send_info(send_address, file_name):
+    with open(settings.SEND_FILES_PATH, "a+") as file:
+        file.write(send_address + "\n" + file_name + "\n")

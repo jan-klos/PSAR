@@ -9,7 +9,7 @@ Shows all files in /home/pi/files. Allows to create or upload new ones. Can be t
 Project structure:
 
 app.py - main script
-settings.py - global settings (path to files folder, by default "/home/pi/files")
+settings.py - global settings (paths, extensions)
 util.py - utility fonctions 
 
 templates/ - html templates

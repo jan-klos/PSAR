@@ -31,7 +31,7 @@ def add_file():
         else:
             util.create_file(request.form["file_name"], request.form["file_content"])
     elif "upload_file_submit" in request.form:
-        if not request.files.get('file', None):
+        if not request.files.get("file", None):
             error = "You must choose a file"
         else:
             util.upload_file(request.files["file"])
@@ -45,7 +45,7 @@ def send_file(file_name):
         socket.inet_pton(socket.AF_INET, send_address)
     except socket.error:
         return show_file(file_name, error="Incorrect IP address")
-    print "send_file(): \n    file_name: {0} \n    address: {1}".format(file_name, send_address)
+    util.write_send_info(send_address, file_name)
     return redirect("/", code=302)
 
 
