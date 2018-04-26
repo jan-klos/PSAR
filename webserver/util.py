@@ -70,4 +70,4 @@ def is_allowed_extension(file_name):
 
 def write_send_info(send_address, file_name):
     with open(settings.SEND_FILES_PATH, "a+") as file:
-        file.write(send_address + "\n" + file_name + "\n")
+        file.write(send_address + "\n" + settings.FILES_PATH + file_name + "\n")
