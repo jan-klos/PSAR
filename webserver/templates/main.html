@@ -3,6 +3,12 @@
 <body>
     {% include "common/banner.html" %}
 
+    {% if error %}
+        <div class="alert alert-warning">
+            <strong>Error:</strong> {{ error }}
+        </div>
+    {% endif %}
+
     <div class="container">
     <div class="row">
     <div class="col-xs-12 col-md-4">
