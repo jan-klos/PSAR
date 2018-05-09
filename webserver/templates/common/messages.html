@@ -1,0 +1,11 @@
+{% if error %}
+    <div class="alert alert-warning">
+        <strong>Error:</strong> {{ error }}
+    </div>
+{% endif %}
+
+{% if conf %}
+    <div class="alert alert-success">
+        {{ conf }}
+    </div>
+{% endif %}

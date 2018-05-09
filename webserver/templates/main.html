@@ -2,12 +2,7 @@
 
 <body>
     {% include "common/banner.html" %}
-
-    {% if error %}
-        <div class="alert alert-warning">
-            <strong>Error:</strong> {{ error }}
-        </div>
-    {% endif %}
+    {% include "common/messages.html" %}
 
     <div class="container">
     <div class="row">
@@ -55,7 +50,7 @@
     </div>
     
     <div class="col-xs-12 col-md-4">
-        <h3>Existing files:</h3>
+        <h3>Existing files</h3>
         <div type="btn-toolbar">
         {% for file in files %}
             {% if file.type == "img" %}
