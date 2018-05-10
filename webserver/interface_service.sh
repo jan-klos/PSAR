@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# script found on http://blog.scphillips.com/posts/2013/07/getting-a-python-script-to-run-in-the-background-as-a-service-on-boot/
+
 ### BEGIN INIT INFO
 # Provides:          interface_service
 # Required-Start:    $remote_fs $syslog
@@ -11,7 +13,7 @@
 ### END INIT INFO
 
 # Change the next 3 lines to suit where you install your script and what you want to call it
-DIR=/home/pi/webserver/
+DIR=/home/pi/PSAR/webserver
 DAEMON=$DIR/app.py
 DAEMON_NAME=interface_service
 
