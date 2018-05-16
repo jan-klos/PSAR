@@ -1,5 +1,6 @@
 import os, shutil, settings
 from werkzeug.utils import secure_filename
+from ctypes import cdll
 
 
 def get_file_size(file):
@@ -71,3 +72,12 @@ def is_allowed_extension(file_name):
 def write_send_info(send_address, file_name):
     with open(settings.SEND_FILES_PATH, "a+") as file:
         file.write(send_address + "\n" + settings.FILES_PATH + file_name + "\n")
+
+
+lib = cdll.LoadLibrary('./libfoo.so')
+class Foo(object):
+    def __init__(self):
+        self.obj = lib.Foo_new()
+
+    def bar(self):
+        lib.Foo_bar(self.obj)

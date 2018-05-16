@@ -8,6 +8,7 @@ import settings
 import messages
 
 app = Flask(__name__)
+f = util.Foo()
 
 if not os.path.exists(settings.FILES_PATH):
     os.makedirs(settings.FILES_PATH)
@@ -52,6 +53,7 @@ def my_send_file(file_name):
         except socket.error:
             return show_file(file_name, error=messages.ip_addr_err)
         util.write_send_info(send_address, file_name)
+        f.bar()
     elif "download_file_submit" in request.form:
         return send_file(settings.FILES_PATH + file_name, attachment_filename=file_name, as_attachment=True)
     return show_file(file_name, conf=messages.file_sent_conf)
