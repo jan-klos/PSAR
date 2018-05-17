@@ -7,12 +7,12 @@
     <div class="panel panel panel-default container-fluid">
         <div class="panel-heading clearfix">
             <div class="col-xs-12 col-md-3 text-center"><h4>{{ file.name }} ({{ file.size }} bytes)</h4></div>
-            <div class="col-xs-12 col-md-3 text-center">
+            <div class="col-xs-12 col-md-5 text-center">
                 <div class="row">
-                    <form class="form-search" method="POST">
+                    <form class="form-group" method="POST">
                         <div class="input-group input-group-lg">
-                            <input class="form-control" type="text" id="sa" name="send_address" placeholder="Enter address">
-                            <span class="input-group-btn"><button class="btn btn-default" name="send_file_submit" type="submit">Send</button></span>
+                            <input class="input-lg" type="text" id="sa" name="send_address" placeholder="Enter address">
+                            <button class="btn btn-lg btn-primary" name="send_file_submit" type="submit">Send</button>
                         </div>
                     </form>
                 </div>
@@ -22,7 +22,7 @@
                     <input class="btn btn-lg btn-primary" name="download_file_submit" value="Download" type="submit">
                 </form>
             </div>
-            <div class="col-xs-12 col-md-3 text-center"><a href="/" class="btn btn-lg btn-primary">Back</a></div>
+            <div class="col-xs-12 col-md-1 text-center"><a href="/" class="btn btn-lg btn-primary">Back</a></div>
         </div>
 
         <div class="panel-body row">

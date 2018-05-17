@@ -1,7 +1,6 @@
 import os, shutil, settings
 from werkzeug.utils import secure_filename
-from ctypes import cdll
-
+import ctypes
 
 def get_file_size(file):
     return os.path.getsize(file)
@@ -74,10 +73,12 @@ def write_send_info(send_address, file_name):
         file.write(send_address + "\n" + settings.FILES_PATH + file_name + "\n")
 
 
-lib = cdll.LoadLibrary('./libfoo.so')
-class Foo(object):
+lib = ctypes.cdll.LoadLibrary('../protocol/libprotocol.so')
+class Protocol(object):
     def __init__(self):
-        self.obj = lib.Foo_new()
+        self.obj = lib.Protocol_new()
 
-    def bar(self):
-        lib.Foo_bar(self.obj)
+    def execute(self, file_path, address_dest):
+        lib.Protocol_execute(self.obj, 
+            ctypes.c_char_p(settings.FILES_PATH + file_path), 
+            ctypes.c_char_p(str(address_dest)))

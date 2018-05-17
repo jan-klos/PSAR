@@ -6,11 +6,18 @@
 #include <arpa/inet.h>
 #include <iostream>
 
-class Foo{
+class Protocol{
 	public:
-	void execute()
+	void execute(char* file_path, char* address_dest)
 	{
-		int status = system("/home/komp/PSAR/protocol/code/bin/main /home/komp/log_test");
+		char buf[256];
+		strcpy(buf, "/home/komp/PSAR/protocol/code/bin/main wlan0 ");
+		strcat(buf, file_path);
+		strcat(buf, " ");
+		strcat(buf, address_dest);
+		strcat(buf, " &");
+		//printf("%s", buf);
+		int status = system(buf);
 	}
 	/*int bar()
 	{
@@ -41,6 +48,9 @@ class Foo{
 };	
 
 extern "C" {
-    Foo* Foo_new(){ return new Foo(); }
-    void Foo_execute(Foo* foo){ foo->execute(); }
+    Protocol* Protocol_new(){ return new Protocol(); }
+    void Protocol_execute(Protocol* p, char* file_path, char* address_dest)
+    { 
+    	p->execute(file_path, address_dest); 
+    }
 }
