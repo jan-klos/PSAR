@@ -51,6 +51,9 @@
     
     <div class="col-xs-12 col-md-4">
         <h3>Existing files</h3>
+        <form method="POST">
+            <input name="sync_files_submit" class="btn btn-lg btn-default" value="Synchronize all files" type="submit">
+        </form>
         <div type="btn-toolbar">
         {% for file in files %}
             {% if file.type == "img" %}

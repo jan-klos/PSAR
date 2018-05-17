@@ -78,7 +78,13 @@ class Protocol(object):
     def __init__(self):
         self.obj = lib.Protocol_new()
 
-    def execute(self, file_path, address_dest):
-        lib.Protocol_execute(self.obj, 
+    # Spray & Wait
+    def send_file(self, file_path, address_dest):
+        lib.Protocol_send_file(self.obj, 
             ctypes.c_char_p(settings.FILES_PATH + file_path), 
-            ctypes.c_char_p(str(address_dest)))
+            ctypes.c_char_p(str(address_dest)),
+            ctypes.c_char_p(protocol))
+
+    # Epidemic
+    def sync_files(self):
+        lib.Protocol_sync_files(self.obj)

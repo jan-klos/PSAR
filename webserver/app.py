@@ -34,13 +34,15 @@ def add_file():
             error = messages.name_file_err;
         else:
             util.create_file(request.form["file_name"], request.form["file_content"])
-            conf = messages.file_created_conf;
+            conf = messages.file_created_conf
     elif "upload_file_submit" in request.form:
         if not request.files.get("file", None):
-            error = messages.choose_file_err;
+            error = messages.choose_file_err
         else:
             util.upload_file(request.files["file"])
-            conf = messages.file_uploaded_conf;
+            conf = messages.file_uploaded_conf
+    elif "sync_files_submit" in request.form:
+    	protocol.sync_files()
     return main(error=error, conf=conf)
 
 
@@ -53,7 +55,7 @@ def my_send_file(file_name):
         except socket.error:
             return show_file(file_name, error=messages.ip_addr_err)
         #util.write_send_info(send_address, file_name)
-        protocol.execute(file_name, send_address)
+        protocol.send_file(file_name, send_address)
     elif "download_file_submit" in request.form:
         return send_file(settings.FILES_PATH + file_name, attachment_filename=file_name, as_attachment=True)
     return show_file(file_name, conf=messages.file_sent_conf)
