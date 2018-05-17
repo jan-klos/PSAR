@@ -12,7 +12,7 @@ class Protocol
 	void send_file(char* file_path, char* address_dest)
 	{
 		char buf[256];
-		strcpy(buf, "/home/komp/PSAR/protocol/code/bin/main spray_wait wlan0 ");
+		strcpy(buf, "/home/komp/PSAR/protocol/code/bin/main wlan0 spray_wait ");
 		strcat(buf, file_path);
 		strcat(buf, " ");
 		strcat(buf, address_dest);
@@ -22,7 +22,7 @@ class Protocol
 
 	void sync_files()
 	{
-		system("/home/komp/PSAR/protocol/code/bin/main epidemic wlan0");
+		system("/home/komp/PSAR/protocol/code/bin/main wlan0 epidemic &");
 	}
 };	
 

@@ -43,6 +43,7 @@ def add_file():
             conf = messages.file_uploaded_conf
     elif "sync_files_submit" in request.form:
     	protocol.sync_files()
+    	conf = messages.sync_files_conf
     return main(error=error, conf=conf)
 
 

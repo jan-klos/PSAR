@@ -82,8 +82,7 @@ class Protocol(object):
     def send_file(self, file_path, address_dest):
         lib.Protocol_send_file(self.obj, 
             ctypes.c_char_p(settings.FILES_PATH + file_path), 
-            ctypes.c_char_p(str(address_dest)),
-            ctypes.c_char_p(protocol))
+            ctypes.c_char_p(str(address_dest)))
 
     # Epidemic
     def sync_files(self):
