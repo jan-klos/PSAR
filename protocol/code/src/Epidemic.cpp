@@ -1,0 +1,252 @@
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <iterator>
+
+#include "Cheat.hpp"
+#include "Dtn.hpp"
+#include "Epidemic.hpp"
+#include "Log.hpp"
+#include "Protocol.hpp"
+#include "Utils.hpp"
+
+const char* FILES_DIR = "/home/pi/files/";
+const int MAX_FILES = 32;
+using namespace std;
+std::string files_hashes;
+std::map<unsigned long, string> files_map;
+unsigned long* files_hashes_arr = new unsigned long[MAX_FILES];
+unsigned long* files_diff = new unsigned long[MAX_FILES];
+
+Epidemic::Epidemic(Dtn *dtn, Log &log): dtn(dtn), log(log)
+{
+
+}
+
+Epidemic::~Epidemic()
+{
+
+}
+
+char* convert_file_to_bytes(const char *name)  
+{  
+	char* buf = new char[256];
+	strcpy(buf, FILES_DIR);
+	strcat(buf, name);
+    ifstream fl(buf);  
+    fl.seekg(0, ios::end);  
+    size_t len = fl.tellg();  
+    char *ret = new char[len];  
+    fl.seekg(0, ios::beg);   
+    fl.read(ret, len);  
+    fl.close();  
+    return ret;  
+}  
+
+vector<std::string> split_string(std::string s)
+{
+    std::istringstream buf(s);
+    std::istream_iterator<std::string> beg(buf), end;
+    std::vector<std::string> tokens(beg, end); 
+    return tokens;
+}
+
+void create_file(std::string s)
+{
+	printf("create_file\n");
+	vector<std::string> msg = split_string(s);
+	ofstream file;
+	file.open(FILES_DIR + msg[1]); 
+	int i;
+	for(i = 2; i < msg.size(); i++)
+	{
+		file << msg[i];
+		if(i != msg.size() -1)
+		{
+			file << " ";
+		}
+	}
+	file.close();
+
+}
+
+void get_files_hashes()
+{
+	DIR *dir;
+	struct dirent *ent;
+	files_hashes = "LIST ";
+	int i = 0;
+	if((dir = opendir(FILES_DIR)) != NULL)
+	{
+	  	while((ent = readdir(dir)) != NULL) 
+	  	{
+	  		if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0)
+	  		{
+	  			continue;
+	  		}
+	    	//printf ("%s\n", ent->d_name);
+	    	files_hashes_arr[i] = std::hash<std::string>{}(ent->d_name); // les hashes de noms
+	    	files_hashes.append(" ").append(to_string(files_hashes_arr[i]));
+	    	files_map.insert(std::make_pair(files_hashes_arr[i], ent->d_name));
+	    	//files_array[i] = ent->d_name;
+	    	//printf("Hash: %lu\n", files_hashes[i]);
+	    	i++;
+	  	}
+		closedir(dir);
+	} 
+	else 
+	{
+	  /* could not open directory */
+	  perror ("");
+	}
+}
+
+void get_files_diff(std::string neighbour_list)
+{
+	get_files_hashes();
+	int i;
+	std::fill_n(files_diff, MAX_FILES, 0);
+	printf("All files: %s\n", neighbour_list.c_str());
+	for(i = 0; i < MAX_FILES; i++)
+	{
+		if(files_hashes_arr[i] == 0)
+		{
+			break;
+		}
+		printf("File to check: %lu\n", files_hashes_arr[i]);
+		if(neighbour_list.find(to_string(files_hashes_arr[i])) == std::string::npos) 
+		{
+			printf("File to send: %lu\n", files_hashes_arr[i]);
+			files_diff[i] = files_hashes_arr[i];
+			// envoyer un fichier manquant
+			// convert_file_to_bytes(files_array[i]);
+			// ???
+
+		}
+	}
+}
+
+void Epidemic::start_forwarding(int *end)
+{
+	int cpt = 1;
+
+	get_files_hashes();
+	//printf("%s\n", files_map.find(15776959774955725710)->second.c_str());
+	//std::string tmp = "LIST 12345 15776959774955725710 34 8611533756821712008";
+	std::string ip = "123.123";
+	char* content = convert_file_to_bytes("dupa.txt");
+
+
+	//log_info(log, "String: %s\n", files_hashes.c_str());
+		
+	char* msg = new char[50];
+	strcpy(msg, "FILE kaczor.txt ");
+	strcat(msg, content);
+	handler_reveived_data(ip, msg, 50);
+
+	this_thread::sleep_for(chrono::seconds(5));
+
+	log_info(log, "Broadcasting %d times with interval of %dms\n",
+			BROADCAST_LIMIT, BROADCAST_DELAY_MSEC);
+
+	while(!*end && cpt <= BROADCAST_LIMIT)
+	{
+		string msg = "BROADCAST_TEST" + to_string(cpt);
+		real_broadcast(msg);
+		cpt++;
+		this_thread::sleep_for(chrono::milliseconds(BROADCAST_DELAY_MSEC));
+	}
+
+	log_info(log, "Broadcasting done\n");
+}
+
+void Epidemic::real_broadcast(string &msg)
+{
+	log_info(log, "SEND_BRD_REAL\n");
+	dtn->getProtocol()->broadcast(msg.c_str(), msg.length());
+}
+
+void Epidemic::fake_broadcast(string &msg)
+{
+	log_info(log, "SEND_BRD_FAKE\n");
+	for (auto p: dtn->get_map())
+		dtn->getProtocol()->peer_sendto(p.second, msg.c_str(), msg.length());
+}
+
+void Epidemic::broadcast_files_list()
+{
+	get_files_hashes();
+	real_broadcast(files_hashes);
+}
+
+void Epidemic::handler_reveived_data(std::string &ip_from, char *buffer, size_t size)
+{
+	(void)size;
+	int i;
+
+	if(ip_from == "0.0.0.0")
+		log_warn(log, "recv from 0.0.0.0 !\n");
+
+	if(strncmp("LIST", buffer, 4) == 0)
+	{
+		std::string neighbour_list(buffer, buffer + size);
+		get_files_diff(neighbour_list);
+		for(i = 0; i < MAX_FILES; i++) 
+		{
+			if(files_diff[i] == 0)
+			{
+				continue;
+			}
+			printf("to_send: %s\n", files_map.find(files_diff[i])->second.c_str());
+		}
+		//dtn->getProtocol()->peer_sendto(dtn->get_map().find(ip_from)->second, files_hashes.c_str(), files_hashes.length());
+	}
+
+	else if(strncmp("FILE", buffer, 4) == 0)
+	{
+		std::string msg(buffer, buffer + size);
+		create_file(msg);
+		/*std::string neighbour_list(buffer, buffer + size);
+		get_files_diff(neighbour_list);
+		for(i = 0; i < MAX_FILES; i++) 
+		{
+			if(files_diff[i] == 0)
+			{
+				continue;
+			}
+			printf("to_send: %s\n", files_map.find(files_diff[i])->second.c_str());
+		}*/
+		broadcast_files_list();
+	}
+
+	if(!strncmp("BROADCAST_TEST", buffer, 14))
+	{
+		peer_t *tmp  = dtn->get_peer(ip_from);
+		if(tmp == NULL)
+			log_info(log, "RECV %s from %s\n", buffer+14, ip_from.c_str());
+		else
+			log_info(log, "RECV %s from %s (%d dbm)\n",
+					buffer+14, ip_from.c_str(), tmp->signal);
+	}
+	else
+	{
+		log_info(log, "Received -> %s\n", buffer);
+		log_info(log, "From -> %s\n", ip_from.c_str());
+	}
+}
+
+void Epidemic::handler_connected_peer(peer_t &peer)
+{
+	log_info(log, "Epidemic: %s connected\n", peer.ip.c_str());
+	broadcast_files_list();
+	//dtn->getProtocol()->peer_sendto(dtn->get_map().find(peer.ip.c_str())->second, files_hashes.c_str(), files_hashes.length());
+}
+void Epidemic::handler_disconnected_peer(peer_t &peer)
+{
+	log_info(log, "Epidemic: %s disconnected\n", peer.ip.c_str());
+}

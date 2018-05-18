@@ -1,0 +1,396 @@
+MobRPi1 sent 1000 brd with interval of 10ms
+	MobRPi2 received 54% of them
+	MobRPi3 received 65% of them
+MobRPi2 sent 1000 brd with interval of 10ms
+	MobRPi1 received 44% of them
+	MobRPi3 received 50% of them
+MobRPi3 sent 1000 brd with interval of 10ms
+	MobRPi1 received 58% of them
+	MobRPi2 received 55% of them
+
+################
+
+MobRPi1 sent 1000 brd with interval of 100ms
+	MobRPi2 received 65% of them
+	MobRPi3 received 56% of them
+MobRPi2 sent 1000 brd with interval of 100ms
+	MobRPi1 received 59% of them
+	MobRPi3 received 59% of them
+MobRPi3 sent 1000 brd with interval of 100ms
+	MobRPi1 received 71% of them
+	MobRPi2 received 63% of them
+
+################
+
+MobRPi1 sent 1000 brd with interval of 0ms
+	MobRPi2 received 41% of them - avg of -31 dbm
+	MobRPi3 received 70% of them - avg of -45 dbm
+MobRPi2 sent 1000 brd with interval of 0ms
+	MobRPi1 received 30% of them - avg of -31 dbm
+	MobRPi3 received 45% of them - avg of -49.0262 dbm
+MobRPi3 sent 1000 brd with interval of 0ms
+	MobRPi1 received 42% of them - avg of -68.948 dbm
+	MobRPi2 received 53% of them - avg of -51.8773 dbm
+
+################
+
+MobRPi1 sent 1000 brd with interval of 500ms
+	MobRPi2 received 69% of them - avg of -34.7151 dbm
+	MobRPi3 received 60% of them - avg of -45.5033 dbm
+MobRPi2 sent 1000 brd with interval of 500ms
+	MobRPi1 received 66% of them - avg of -34.937 dbm
+	MobRPi3 received 66% of them - avg of -52.6872 dbm
+MobRPi3 sent 1000 brd with interval of 500ms
+	MobRPi1 received 77% of them - avg of -45.8052 dbm
+	MobRPi2 received 66% of them - avg of -52.9367 dbm
+
+################
+
+MobRPi1 sent 1000 brd with interval of 1000ms
+	MobRPi2 received 73% of them - avg of -34.2049 dbm
+	MobRPi3 received 61% of them - avg of -43.9511 dbm
+MobRPi2 sent 1000 brd with interval of 1000ms
+	MobRPi1 received 68% of them - avg of -34.5058 dbm
+	MobRPi3 received 66% of them - avg of -50.5639 dbm
+MobRPi3 sent 1000 brd with interval of 1000ms
+	MobRPi1 received 83% of them - avg of -44.878 dbm
+	MobRPi2 received 72% of them - avg of -50.2972 dbm
+
+################
+
+MobRPi1 sent 1000 brd with interval of 2000ms
+	MobRPi2 received 73% of them - avg of -31.9016 dbm
+	MobRPi3 received 60% of them - avg of -46.4371 dbm
+MobRPi2 sent 1000 brd with interval of 2000ms
+	MobRPi1 received 71% of them - avg of -32.2017 dbm
+	MobRPi3 received 68% of them - avg of -49.8866 dbm
+MobRPi3 sent 1000 brd with interval of 2000ms
+	MobRPi1 received 84% of them - avg of -47.5297 dbm
+	MobRPi2 received 74% of them - avg of -49.8048 dbm
+
+################
+
+MobRPi1 sent 1000 brd with interval of 2000ms
+	MobRPi2 received 72% of them - avg of -36.2964 dbm
+	MobRPi3 received 54% of them - avg of -44.7096 dbm
+MobRPi2 sent 1000 brd with interval of 1000ms
+	MobRPi1 received 66% of them - avg of -36.5727 dbm
+	MobRPi3 received 63% of them - avg of -52.7621 dbm
+MobRPi3 sent 1000 brd with interval of 500ms
+	MobRPi1 received 74% of them - avg of -45.5161 dbm
+	MobRPi2 received 68% of them - avg of -53.4752 dbm
+
+################
+
+MobRPi1 sent 1000 brd with interval of 30ms
+	MobRPi2 received 46% of them - avg of -31.3319 dbm
+	MobRPi3 received 66% of them - avg of -35.6387 dbm
+MobRPi2 sent 1000 brd with interval of 30ms
+	MobRPi1 received 62% of them - avg of -33.6741 dbm
+	MobRPi3 received 62% of them - avg of -18.2335 dbm
+MobRPi3 sent 1000 brd with interval of 30ms
+	MobRPi1 received 60% of them - avg of -35.4917 dbm
+	MobRPi2 received 63% of them - avg of -20.8616 dbm
+
+################
+
+MobRPi1 sent 1000 brd with interval of 30ms
+	MobRPi2 received 67% of them - avg of -42.6369 dbm
+	MobRPi3 received 61% of them - avg of -34.7716 dbm
+MobRPi2 sent 1000 brd with interval of 30ms
+	MobRPi1 received 43% of them - avg of -51.6437 dbm
+	MobRPi3 received 56% of them - avg of -17.9666 dbm
+MobRPi3 sent 1000 brd with interval of 30ms
+	MobRPi1 received 60% of them - avg of -34.5736 dbm
+	MobRPi2 received 48% of them - avg of -26.7125 dbm
+
+################
+
+MobRPi1 sent 1000 brd with interval of 50ms
+	MobRPi2 received 81% of them - avg of -36.4331 dbm
+	MobRPi3 received 69% of them - avg of -36.1676 dbm
+MobRPi2 sent 1000 brd with interval of 50ms
+	MobRPi1 received 71% of them - avg of -44.8732 dbm
+	MobRPi3 received 74% of them - avg of -36.7661 dbm
+MobRPi3 sent 1000 brd with interval of 50ms
+	MobRPi1 received 88% of them - avg of -36.8029 dbm
+	MobRPi2 received 80% of them - avg of -32.3888 dbm
+
+################
+
+MobRPi1 sent 2000 brd with interval of 30ms
+	MobRPi2 received 74% of them - avg of -30.9745 dbm
+	MobRPi3 received 75% of them - avg of -25.6215 dbm
+MobRPi2 sent 2000 brd with interval of 30ms
+	MobRPi1 received 72% of them - avg of -32.9421 dbm
+	MobRPi3 received 77% of them - avg of -17.7954 dbm
+MobRPi3 sent 2000 brd with interval of 30ms
+	MobRPi1 received 73% of them - avg of -29.7532 dbm
+	MobRPi2 received 77% of them - avg of -18.1847 dbm
+
+################
+
+MobRPi1 sent 2000 brd with interval of 30ms
+	MobRPi2 received 91% of them - avg of -32.5263 dbm
+	MobRPi3 received 90% of them - avg of -29.713 dbm
+MobRPi2 sent 2000 brd with interval of 30ms
+	MobRPi1 received 90% of them - avg of -32.7929 dbm
+	MobRPi3 received 90% of them - avg of -18.6215 dbm
+MobRPi3 sent 2000 brd with interval of 30ms
+	MobRPi1 received 87% of them - avg of -30.3681 dbm
+	MobRPi2 received 91% of them - avg of -18.783 dbm
+
+################
+
+MobRPi1 sent 2000 brd with interval of 30ms
+	MobRPi2 received 76% of them - avg of -29.8307 dbm
+	MobRPi3 received 77% of them - avg of -31.4284 dbm
+MobRPi2 sent 2000 brd with interval of 30ms
+	MobRPi1 received 73% of them - avg of -30.2859 dbm
+	MobRPi3 received 86% of them - avg of -20.2415 dbm
+MobRPi3 sent 2000 brd with interval of 30ms
+	MobRPi1 received 71% of them - avg of -33.0562 dbm
+	MobRPi2 received 65% of them - avg of -17.7289 dbm
+
+################
+
+MobRPi1 sent 3000 brd with interval of 1ms
+	MobRPi2 received 98% of them - avg of -33.0489 dbm
+	MobRPi3 received 98% of them - avg of -30.6866 dbm
+MobRPi2 sent 3000 brd with interval of 1ms
+	MobRPi1 received 98% of them - avg of -34.5534 dbm
+	MobRPi3 received 98% of them - avg of -20.2115 dbm
+MobRPi3 sent 3000 brd with interval of 1ms
+	MobRPi1 received 99% of them - avg of -32.8386 dbm
+	MobRPi2 received 98% of them - avg of -21.8429 dbm
+
+################
+
+MobRPi1 sent 3000 brd with interval of 1ms
+	MobRPi2 received 98% of them - avg of -29.391 dbm
+	MobRPi3 received 99% of them - avg of -47.8347 dbm
+MobRPi2 sent 3000 brd with interval of 1ms
+	MobRPi1 received 98% of them - avg of -29.7823 dbm
+	MobRPi3 received 91% of them - avg of -55.8193 dbm
+MobRPi3 sent 3000 brd with interval of 1ms
+	MobRPi1 received 74% of them - avg of -54.6665 dbm
+	MobRPi2 received 89% of them - avg of -56.9874 dbm
+
+################
+
+MobRPi1 sent 1000 brd with interval of 10ms
+	MobRPi2 received 76% of them - avg of -28.9712 dbm
+	MobRPi3 received 0% of them - avg of  dbm
+MobRPi2 sent 1000 brd with interval of 10ms
+	MobRPi1 received 83% of them - avg of -28.1722 dbm
+	MobRPi3 received 16% of them - avg of -76.4524 dbm
+MobRPi3 sent 1000 brd with interval of 10ms
+	MobRPi1 received 54% of them - avg of -74.4412 dbm
+	MobRPi2 received 15% of them - avg of -73.2092 dbm
+
+################
+
+Type: IBSS
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_FAKE
+
+MobRPi1 sent 1000 brd with interval of 10ms
+	MobRPi2 received 45.40% of them - avg of -30.6432 dbm
+	MobRPi3 received 4.90% of them - avg of -82.7551 dbm
+MobRPi2 sent 1000 brd with interval of 10ms
+	MobRPi1 received 70.90% of them - avg of -32.5994 dbm
+	MobRPi3 received 87.00% of them - avg of -77.5885 dbm
+MobRPi3 sent 1000 brd with interval of 10ms
+	MobRPi1 received 0% of them - avg of  dbm
+	MobRPi2 received 54.80% of them - avg of -73.7263 dbm
+
+################
+
+Type: IBSS
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_FAKE
+
+MobRPi1 sent 1000 brd with interval of 10ms
+	MobRPi2 received 23.60% of them - avg of -33.2542 dbm
+	MobRPi3 received 1.20% of them - avg of -73.1667 dbm
+MobRPi2 sent 1000 brd with interval of 10ms
+	MobRPi1 received 77.30% of them - avg of -31.6468 dbm
+	MobRPi3 received 27.90% of them - avg of -77.1935 dbm
+MobRPi3 sent 1000 brd with interval of 10ms
+	MobRPi1 received 35.80% of them - avg of -78.1341 dbm
+	MobRPi2 received 82.70% of them - avg of -72.6203 dbm
+
+################
+
+Type: IBSS
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_REAL
+
+MobRPi1 sent 1000 brd with interval of 10ms
+	MobRPi2 received 81.60% of them - avg of -26.0564 dbm
+	MobRPi3 received 7.70% of them - avg of -73.987 dbm
+MobRPi2 sent 1000 brd with interval of 10ms
+	MobRPi1 received 60.30% of them - avg of -29.0066 dbm
+	MobRPi3 received 8.10% of them - avg of -78.0617 dbm
+MobRPi3 sent 1000 brd with interval of 10ms
+	MobRPi1 received 1.20% of them - avg of -76.3333 dbm
+	MobRPi2 received 3.50% of them - avg of -73.0571 dbm
+
+################
+
+Type: IBSS
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_REAL
+
+MobRPi1 sent 100 brd with interval of 100ms
+	MobRPi2 received 73.00% of them - avg of -27 dbm
+	MobRPi3 received 25.00% of them - avg of -72.52 dbm
+MobRPi2 sent 100 brd with interval of 100ms
+	MobRPi1 received 62.00% of them - avg of -29 dbm
+	MobRPi3 received 14.00% of them - avg of -74.2857 dbm
+MobRPi3 sent 100 brd with interval of 100ms
+	MobRPi1 received 33.00% of them - avg of -76.5152 dbm
+	MobRPi2 received 13.00% of them - avg of -72.6923 dbm
+
+################
+
+Type: IBSS
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_FAKE
+
+MobRPi1 sent 100 brd with interval of 100ms
+	MobRPi2 received 89.00% of them - avg of -31.4944 dbm
+	MobRPi3 received 18.00% of them - avg of -75 dbm
+MobRPi2 sent 100 brd with interval of 100ms
+	MobRPi1 received 78.00% of them - avg of -45.0769 dbm
+	MobRPi3 received 79.00% of them - avg of -77 dbm
+MobRPi3 sent 100 brd with interval of 100ms
+	MobRPi1 received 0% of them - avg of  dbm
+	MobRPi2 received 63.00% of them - avg of -72.619 dbm
+
+################
+
+Type: mesh point
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_FAKE
+
+MobRPi1 sent 100 brd with interval of 100ms
+	MobRPi2 received 100.00% of them - avg of -25.16 dbm
+	MobRPi3 received 41.00% of them - avg of -72.6585 dbm
+MobRPi2 sent 100 brd with interval of 100ms
+	MobRPi1 received 95.00% of them - avg of -31.8 dbm
+	MobRPi3 received 57.00% of them - avg of -76.4386 dbm
+MobRPi3 sent 100 brd with interval of 100ms
+	MobRPi1 received 69.00% of them - avg of -75.2319 dbm
+	MobRPi2 received 65.00% of them - avg of -71.8308 dbm
+
+################
+
+Type: mesh point
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_FAKE
+
+MobRPi1 sent 1000 brd with interval of 10ms
+	MobRPi2 received 64.40% of them - avg of -34.705 dbm
+	MobRPi3 received 10.30% of them - avg of -77 dbm
+MobRPi2 sent 1000 brd with interval of 10ms
+	MobRPi1 received 61.00% of them - avg of -34.5344 dbm
+	MobRPi3 received 11.10% of them - avg of -78.027 dbm
+MobRPi3 sent 1000 brd with interval of 10ms
+	MobRPi1 received 32.30% of them - avg of -78.8514 dbm
+	MobRPi2 received 9.00% of them - avg of -73.0444 dbm
+
+################
+
+Type: mesh point
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_REAL
+
+MobRPi1 sent 100 brd with interval of 100ms
+	MobRPi2 received 64.00% of them - avg of -26.3438 dbm
+	MobRPi3 received 51.00% of them - avg of -73.9804 dbm
+MobRPi2 sent 100 brd with interval of 100ms
+	MobRPi1 received 67.00% of them - avg of -27.8358 dbm
+	MobRPi3 received 63.00% of them - avg of -74.5556 dbm
+MobRPi3 sent 100 brd with interval of 100ms
+	MobRPi1 received 50.00% of them - avg of -74.92 dbm
+	MobRPi2 received 57.00% of them - avg of -73.1754 dbm
+
+################
+
+Type: mesh point
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_REAL
+
+MobRPi1 sent 100 brd with interval of 100ms
+	MobRPi2 received 75.00% of them - avg of -33.32 dbm
+	MobRPi3 received 75.00% of them - avg of -37 dbm
+MobRPi2 sent 100 brd with interval of 100ms
+	MobRPi1 received 49.00% of them - avg of -39.1633 dbm
+	MobRPi3 received 56.00% of them - avg of -56.3571 dbm
+MobRPi3 sent 100 brd with interval of 100ms
+	MobRPi1 received 67.00% of them - avg of -38.0746 dbm
+	MobRPi2 received 58.00% of them - avg of -53.1724 dbm
+
+################
+
+Type: mesh point
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_FAKE
+
+MobRPi1 sent 100 brd with interval of 100ms
+	MobRPi2 received 88.00% of them - avg of -33.4545 dbm
+	MobRPi3 received 82.00% of them - avg of -35.9268 dbm
+MobRPi2 sent 100 brd with interval of 100ms
+	MobRPi1 received 66.00% of them - avg of -35.5152 dbm
+	MobRPi3 received 74.00% of them - avg of -46.5135 dbm
+MobRPi3 sent 100 brd with interval of 100ms
+	MobRPi1 received 53.00% of them - avg of -35.3019 dbm
+	MobRPi2 received 82.00% of them - avg of -45 dbm
+
+################
+
+Type: mesh point
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_FAKE
+
+MobRPi1 sent 100 brd with interval of 100ms
+	MobRPi2 received 64.00% of them - avg of -35 dbm
+	MobRPi3 received 87.00% of them - avg of -37.023 dbm
+MobRPi2 sent 100 brd with interval of 100ms
+	MobRPi1 received 94.00% of them - avg of -34.0638 dbm
+	MobRPi3 received 77.00% of them - avg of -46.8182 dbm
+MobRPi3 sent 100 brd with interval of 100ms
+	MobRPi1 received 84.00% of them - avg of -36.3333 dbm
+	MobRPi2 received 79.00% of them - avg of -45 dbm
+
+################
+
+Type: mesh point
+Freq: 2412
+Txpower: 20.00 dBm
+Brd type: BRD_FAKE
+
+MobRPi1 sent 108000 brd with interval of 500ms
+	MobRPi2 received 76.44% of them - avg of -33.2813 dbm
+	MobRPi3 received 79.96% of them - avg of -34.9395 dbm
+MobRPi2 sent 108000 brd with interval of 500ms
+	MobRPi1 received 73.10% of them - avg of -34.5771 dbm
+	MobRPi3 received 79.81% of them - avg of -45.0884 dbm
+MobRPi3 sent 108000 brd with interval of 500ms
+	MobRPi1 received 76.92% of them - avg of -36.8448 dbm
+	MobRPi2 received 80.30% of them - avg of -45.2503 dbm
+
+################
+
