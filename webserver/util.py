@@ -75,15 +75,19 @@ def write_send_info(send_address, file_name):
 
 lib = ctypes.cdll.LoadLibrary('../protocol/libprotocol.so')
 class Protocol(object):
+    interface = "wlan1"
+
     def __init__(self):
         self.obj = lib.Protocol_new()
 
     # Spray & Wait
     def send_file(self, file_path, address_dest):
         lib.Protocol_send_file(self.obj, 
+            ctypes.c_char_p(self.interface),
             ctypes.c_char_p(settings.FILES_PATH + file_path), 
             ctypes.c_char_p(str(address_dest)))
 
     # Epidemic
     def sync_files(self):
-        lib.Protocol_sync_files(self.obj)
+        lib.Protocol_sync_files(self.obj, 
+            ctypes.c_char_p(self.interface))
