@@ -17,15 +17,6 @@ char* send_addr;
 char* filename;
 const int LIMIT_NB_COPY = 32;
 
-/*struct sw_struct
-{
-	char* filename;
-	char* send_addr;
-	vector<string> used_addr;
-	char hash[MD5_DIGEST_LENGTH];
-	int n;
-};*/
-
 vector<struct sw_struct> sw;
 
 SprayWait::SprayWait(Dtn* dtn, Log& log, char* send_addr,
@@ -54,10 +45,15 @@ void SprayWait::send_files(string ip)
 	for(vector<struct sw_struct>::iterator it = sw.begin(); it != sw.end(); ++it) 
 	{
 		bool used = false;
-		if(it->n <= 1 && ip != it->send_addr)
+		if(it->delivered == true || (it->n <= 1 && ip != it->send_addr))
 		{
 			continue;
 		}
+		else if(ip == it->send_addr)
+		{
+			it->delivered = true;
+		}
+	
 		for(vector<string>::iterator it1 = it->used_addr.begin(); 
 			it1 != it->used_addr.end(); ++it1)
 		{
@@ -143,6 +139,10 @@ void SprayWait::handler_reveived_data(std::string &ip_from, char *buffer, size_t
 		create_file_sw(FILES_DIR, msg, &s);
 		s.used_addr.push_back(ip_from);
 		get_file_hash(FILES_DIR, filename, s.hash);
+		if(strcmp(dtn->MY_IP.c_str(), s.send_addr) == 0)
+		{
+			s.delivered = true;
+		}
 		sw.push_back(s);
 	}
 

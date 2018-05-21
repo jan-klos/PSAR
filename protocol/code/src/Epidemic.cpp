@@ -138,7 +138,7 @@ void Epidemic::handler_reveived_data(string &ip_from, char *buffer, size_t size)
 	if(ip_from == "0.0.0.0")
 		log_warn(log, "recv from 0.0.0.0 !\n");
 
-	if(ip_from == "192.168.2.1") //TODO, maintenant en dur
+	if(ip_from == dtn->MY_IP)
 	{
 		log_info(log, "Message from myself: %s\n", ip_from.c_str());
 		return;

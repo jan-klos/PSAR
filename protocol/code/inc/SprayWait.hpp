@@ -15,6 +15,7 @@ struct sw_struct
 	std::vector<std::string> used_addr;
 	char hash[MD5_DIGEST_LENGTH];
 	int n;
+	bool delivered = false;
 };
 
 class SprayWait : public Forward
