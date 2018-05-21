@@ -7,6 +7,7 @@
 #include "Dtn.hpp"
 #include "Epidemic.hpp"
 #include "LeaderElection.hpp"
+#include "SprayWait.hpp"
 #include "Log.hpp"
 #include "Mesh.hpp"
 #include "UdpProtocol.hpp"
@@ -28,8 +29,7 @@ Dtn::Dtn(uint network_id, Log &log, char* send_address, char* file_path) : log(l
 {
 	log_info(log, "Setting up DTN - Spray and Wait\n");
 	protocol 	= new UdpProtocol(this, log);
-	//forward 	= new SprayWait(this, log);
-	forward 	= new Epidemic(this, log); //proxy
+	forward 	= new SprayWait(this, log, send_address, file_path, 1);
 	comm 		= new Mesh(this, log, network_id);
 }
 

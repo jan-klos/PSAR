@@ -6,7 +6,7 @@ function usage(){
 }
 
 #changer id pour chaque rpi
-ID="1" 
+ID="1"
 MESHNAME="MOBMESH"
 
 if [ $# -eq 0 ];
