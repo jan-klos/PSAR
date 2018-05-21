@@ -145,6 +145,7 @@ void SprayWait::handler_reveived_data(std::string &ip_from, char *buffer, size_t
 		{
 			s.delivered = true;
 		}
+		if(s.delivered) printf("delivered\n");
 		sw.push_back(s);
 	}
 
