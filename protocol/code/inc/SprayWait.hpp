@@ -21,8 +21,6 @@ struct sw_struct
 class SprayWait : public Forward
 {
 	private:
-		const char* FILES_DIR = "/home/pi/files/";
-		const int MAX_FILE_CONTENT = 2048;
 		Dtn *dtn;
 		Log &log;
 		char* send_addr;

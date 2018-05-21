@@ -26,6 +26,9 @@ class Dtn
 
 	public:
 		std::string MY_IP = "192.168.2.2"; // TODO maintenant en dur
+		const char* FILES_DIR = "/home/pi/files/"; // TODO maintenant en dur
+		const int MAX_FILES = 32;
+		const int MAX_FILE_CONTENT = 2048;
 		Dtn(uint network_id, int my_id, Log &log);
 		Dtn(uint network_id, Log &log);
 		Dtn(uint network_id, Log &log, char* send_address, char* filename, int nbcopy);
