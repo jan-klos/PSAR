@@ -5,8 +5,6 @@
 
 #include <time.h>
 
-#include "Utils.hpp"
-
 #define LOG_PATH		"log/"
 #define LOG_SUFF		".txt"
 
@@ -57,7 +55,7 @@
 	} while (0)
 
 #define log_info(log, ...)\
-        do {\
+	do {\
 		LOG(log, LOG_INFO, "" ,__VA_ARGS__);\
 	} while (0)
 

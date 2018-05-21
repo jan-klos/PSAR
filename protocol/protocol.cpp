@@ -9,11 +9,10 @@
 class Protocol
 {
 	public:
-	void send_file(char* bin_path, char* interface, char* file_path, char* address_dest)
+	void send_file(char* interface, char* file_path, char* address_dest)
 	{
 		char buf[256];
-		strcpy(buf, bin_path);
-		strcat(buf, " ");
+		strcpy(buf, "/home/pi/PSAR/protocol/code/bin/main ");
 		strcat(buf, interface);
 		strcat(buf, " spray_wait ");
 		strcat(buf, file_path);
@@ -23,10 +22,10 @@ class Protocol
 		system(buf);
 	}
 
-	void sync_files(char* bin_path, char* interface)
+	void sync_files(char* interface)
 	{
 		char buf[256];
-		strcpy(buf, bin_path);	
+		strcpy(buf, "/home/pi/PSAR/protocol/code/bin/main ");	
 		strcat(buf, interface);
 		strcat(buf, " epidemic &");
 		system(buf);		
@@ -36,12 +35,12 @@ class Protocol
 extern "C" 
 {
     Protocol* Protocol_new(){ return new Protocol(); }
-    void Protocol_send_file(Protocol* p, char* bin_path, char* interface, char* file_path, char* address_dest)
+    void Protocol_send_file(Protocol* p, char* interface, char* file_path, char* address_dest)
     { 
-    	p->send_file(bin_path, interface, file_path, address_dest); 
+    	p->send_file(interface, file_path, address_dest); 
     }
-    void Protocol_sync_files(Protocol* p, char* bin_path, char* interface)
+    void Protocol_sync_files(Protocol* p, char* interface)
     {
-    	p->sync_files(bin_path, interface);
+    	p->sync_files(interface);
     }
 }

@@ -27,7 +27,7 @@ class Dtn
 	public:
 		Dtn(uint network_id, int my_id, Log &log);
 		Dtn(uint network_id, Log &log);
-		Dtn(uint network_id, Log &log, char* send_address, char* file_path);
+		Dtn(uint network_id, Log &log, char* send_address, char* filename, int nbcopy);
 		~Dtn();
 		void start();
 		int new_peer(Station &s, std::string &ip);

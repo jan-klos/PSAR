@@ -1,7 +1,7 @@
 CXX=g++
 CXXFLAGS=-std=c++11 -W -Wall -g
 CXXFLAGS+= $(shell pkg-config --cflags libnl-genl-3.0)
-CXXLINK= -pthread $(shell pkg-config --libs libnl-genl-3.0)
+CXXLINK= -pthread $(shell pkg-config --libs libnl-genl-3.0) -lssl -lcrypto
 
 DIR_SRC=src/
 DIR_INC=inc/

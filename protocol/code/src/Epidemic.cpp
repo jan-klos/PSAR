@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <iterator>
+#include <openssl/md5.h>
 
 #include "Cheat.hpp"
 #include "Dtn.hpp"
@@ -15,13 +16,16 @@
 #include "Protocol.hpp"
 #include "Utils.hpp"
 
+using namespace std;
+
 const char* FILES_DIR = "/home/pi/files/";
 const int MAX_FILES = 32;
+const int MAX_FILE_CONTENT = 128;
 using namespace std;
-std::string files_hashes;
-std::map<unsigned long, string> files_map;
-unsigned long* files_hashes_arr = new unsigned long[MAX_FILES];
-unsigned long* files_diff = new unsigned long[MAX_FILES];
+string files_hashes;
+map<string, string> files_map;
+string* files_hashes_arr = new string[MAX_FILES]();
+string* files_diff = new string[MAX_FILES]();
 
 Epidemic::Epidemic(Dtn *dtn, Log &log): dtn(dtn), log(log)
 {
@@ -33,53 +37,12 @@ Epidemic::~Epidemic()
 
 }
 
-char* Epidemic::convert_file_to_bytes(const char *filename)  
-{  
-    char* filepath = new char[256];
-    strcpy(filepath, FILES_DIR);
-    strcat(filepath, filename);
-    ifstream fl(filepath);  
-    fl.seekg(0, ios::end);  
-    size_t len = fl.tellg();  
-    char *ret = new char[len];  
-    fl.seekg(0, ios::beg);   
-    fl.read(ret, len);  
-    fl.close();  
-    return ret;  
-}  
-
-vector<std::string> Epidemic::split_string(std::string s)
-{
-    std::istringstream buf(s);
-    std::istream_iterator<std::string> beg(buf), end;
-    std::vector<std::string> tokens(beg, end); 
-    return tokens;
-}
-
-void Epidemic::create_file(std::string s)
-{
-	vector<std::string> msg = split_string(s);
-	ofstream file;
-	file.open(FILES_DIR + msg[1]); 
-	int i;
-	for(i = 2; i < msg.size(); i++)
-	{
-		file << msg[i];
-		if(i != msg.size() -1)
-		{
-			file << " ";
-		}
-	}
-	log_info(log, "Created file %s", msg[1]);
-	file.close();
-
-}
-
 void Epidemic::get_files_hashes()
 {
 	DIR *dir;
 	struct dirent *ent;
 	files_hashes = "LIST ";
+	char hash[MD5_DIGEST_LENGTH];
 	int i = 0;
 	if((dir = opendir(FILES_DIR)) != NULL)
 	{
@@ -89,9 +52,11 @@ void Epidemic::get_files_hashes()
 	  		{
 	  			continue;
 	  		}
-		    	files_hashes_arr[i] = std::hash<std::string>{}(ent->d_name); // les hashes de noms
-		    	files_hashes.append(" ").append(to_string(files_hashes_arr[i]));
-		    	files_map.insert(std::make_pair(files_hashes_arr[i], ent->d_name));
+			get_file_hash(FILES_DIR, ent->d_name, hash);
+			string tmp(hash, MD5_DIGEST_LENGTH);
+			files_hashes_arr[i] = tmp; 
+		    files_hashes.append(" ").append(files_hashes_arr[i]);
+		    files_map.insert(make_pair(files_hashes_arr[i], ent->d_name));
 	    	i++;
 	  	}
 		closedir(dir);
@@ -103,21 +68,23 @@ void Epidemic::get_files_hashes()
 	}
 }
 
-void Epidemic::get_files_diff(std::string neighbour_list)
+void Epidemic::get_files_diff(string neighbour_list)
 {
 	get_files_hashes();
 	int i;
-	std::fill_n(files_diff, MAX_FILES, 0);
+	fill_n(files_diff, MAX_FILES, "");
+	const char* filename;
 	for(i = 0; i < MAX_FILES; i++)
 	{
-		if(files_hashes_arr[i] == 0)
+		if(files_hashes_arr[i].empty())
 		{
 			break;
 		}
-		log_info(log, "File to check: %lu\n", files_hashes_arr[i]);
-		if(neighbour_list.find(to_string(files_hashes_arr[i])) == std::string::npos) 
+		filename = files_map.find(files_hashes_arr[i])->second.c_str();
+		log_info(log, "File to check: %s\n", filename);
+		if(neighbour_list.find(files_hashes_arr[i]) == string::npos) 
 		{
-			log_info(log, "File to send: %lu\n", files_hashes_arr[i]);
+			log_info(log, "File to send: %s\n", filename);
 			files_diff[i] = files_hashes_arr[i];
 		}
 	}
@@ -126,8 +93,6 @@ void Epidemic::get_files_diff(std::string neighbour_list)
 void Epidemic::start_forwarding(int *end)
 {
 	int cpt = 1;
-
-	get_files_hashes();
 
 	this_thread::sleep_for(chrono::seconds(5));
 
@@ -165,7 +130,7 @@ void Epidemic::broadcast_files_list()
 	real_broadcast(files_hashes);
 }
 
-void Epidemic::handler_reveived_data(std::string &ip_from, char *buffer, size_t size)
+void Epidemic::handler_reveived_data(string &ip_from, char *buffer, size_t size)
 {
 	(void)size;
 	int i;
@@ -173,34 +138,43 @@ void Epidemic::handler_reveived_data(std::string &ip_from, char *buffer, size_t 
 	if(ip_from == "0.0.0.0")
 		log_warn(log, "recv from 0.0.0.0 !\n");
 
+	if(ip_from == "192.168.2.1") //TODO, maintenant en dur
+	{
+		log_info(log, "Message from myself: %s\n", ip_from.c_str());
+		return;
+	}
+
 	if(strncmp("LIST", buffer, 4) == 0)
 	{
-		std::string neighbour_list(buffer, buffer + size);
+		string neighbour_list(buffer, buffer + size);
 		get_files_diff(neighbour_list);
+		char* content = new char[MAX_FILE_CONTENT]();
+		char* msg_to_send = new char[MAX_FILE_CONTENT]();
 		for(i = 0; i < MAX_FILES; i++) 	
 		{
-			if(files_diff[i] == 0)
+			if(files_diff[i].empty())
 			{
 				continue;
 			}
+			memset(content, 0, MAX_FILE_CONTENT);
+			memset(msg_to_send, 0, MAX_FILE_CONTENT);
 			const char* filename = files_map.find(files_diff[i])->second.c_str();
-			printf("to_send: %s\n", filename);
-			char* content = convert_file_to_bytes(filename);
-			char* msg1 = new char(strlen(content) + strlen("FILE  \0") + strlen(filename));
-			strcpy(msg1, "FILE ");
-			strcat(msg1, filename);
-			strcat(msg1, " ");
-			strcat(msg1, content);
-			strcat(msg1, "\0");
-			printf("file to send: %s ", msg1);
-			dtn->getProtocol()->peer_sendto(dtn->get_map().find(ip_from)->second, msg1, strlen(msg1));
+			log_info(log, "Sending file: %s to %s\n", filename, ip_from.c_str());
+			convert_file_to_bytes(FILES_DIR, filename, content);
+			strcpy(msg_to_send, "FILE ");
+			strcat(msg_to_send, filename);
+			strcat(msg_to_send, " ");
+			strcat(msg_to_send, content);
+			strcat(msg_to_send, "\0");
+			dtn->getProtocol()->peer_sendto(dtn->get_map().find(ip_from)->second, msg_to_send, strlen(msg_to_send));
 		}
+		//delete [] content; delete [] msg_to_send;
 	}
 
 	else if(strncmp("FILE", buffer, 4) == 0)
 	{
-		std::string msg(buffer, buffer + size);
-		create_file(msg);
+		string msg(buffer, buffer + size);
+		create_file(FILES_DIR, msg);
 
 		broadcast_files_list();
 	}
@@ -230,3 +204,4 @@ void Epidemic::handler_disconnected_peer(peer_t &peer)
 {
 	log_info(log, "Epidemic: %s disconnected\n", peer.ip.c_str());
 }
+ 

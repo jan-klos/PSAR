@@ -12,6 +12,8 @@ class Epidemic : public Forward
 		void real_broadcast(std::string &msg);
 		void fake_broadcast(std::string &msg);
 		void broadcast_files_list();
+		void get_files_diff(std::string neighbour_list);
+		void get_files_hashes();		
 	public:
 		Epidemic(Dtn *dtn, Log &log);
 		~Epidemic();

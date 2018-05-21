@@ -5,8 +5,10 @@
 #include <memory>
 #include <string>
 #include <vector>
-
+#include <openssl/md5.h>
 #include <string.h>
+
+#include "SprayWait.hpp"
 
 /***** Leader Election *****/
 #define INT_INVAL				-10
@@ -23,7 +25,6 @@
 #define LIMIT_INACTIVE_TIME_MS	5000
 #define MIN_SIGNAL_VALUE_DBM	-30
 
-#define LIMIT_NB_COPY           50
 #define BROADCAST_LIMIT			50
 #define BROADCAST_DELAY_MSEC	100
 
@@ -53,3 +54,15 @@ std::string exec(const char* cmd);
 std::vector<std::string> split(const std::string &s, char delim);
 
 void mac_addr_n2a(std::string &mac_addr, unsigned char *arg);
+
+std::vector<std::string> split_string(std::string str);
+
+void convert_file_to_bytes(const char* FILES_DIR, const char* filename, char* content);
+
+void create_file(const char* FILES_DIR, std::string str); 
+
+void create_file_sw(const char* FILES_DIR, std::string str, struct sw_struct* s); 
+
+void get_file_hash(const char* FILES_DIR, const char* filename, char* hash);
+
+void get_filepath(const char* FILES_DIR, const char* filename, char* filepath);

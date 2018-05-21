@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Peer.hpp"
+
 class Forward
 {
 	public:

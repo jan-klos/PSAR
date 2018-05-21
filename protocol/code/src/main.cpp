@@ -25,6 +25,7 @@ int main(int argc, char **argv)
 {
 	uint network_id;
 	char hostname[BUFF_SIZE];
+	int NBCOPY = 8; // nombre de copies initial pour le S&W
 
 	if(argc < 2)
 	{
@@ -62,7 +63,7 @@ int main(int argc, char **argv)
 	}
 	else if(strcmp(argv[2], "spray_wait") == 0)
 	{
-		Dtn me(network_id, log, argv[3], argv[4]);
+		Dtn me(network_id, log, argv[3], argv[4], NBCOPY);
 		me.start();
 		log_notice(log, "DTN initialized - Spray & Wait\n");
 	}

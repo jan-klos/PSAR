@@ -4,5 +4,7 @@ sudo service ntp start
 sudo unlink /etc/localtime
 sudo ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
+sudo apt-get install libssl-dev
+
 ###### Config - changer pour chaque rpi
 sudo sed -i 's/raspberrypi/MobRPi2/g' /etc/hosts 
