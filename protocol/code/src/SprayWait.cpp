@@ -13,14 +13,12 @@
 
 using namespace std;
 
-char* send_addr;
-char* filename;
 const int LIMIT_NB_COPY = 32;
 
 vector<struct sw_struct> sw;
 
-SprayWait::SprayWait(Dtn* dtn, Log& log, char* send_addr,
-                     char* filename, int nbcopy): 
+SprayWait::SprayWait(Dtn* dtn, Log& log, char* filename,
+                     char* send_addr, int nbcopy): 
                      dtn(dtn), log(log), send_addr(send_addr),
                      filename(filename)
 {
@@ -42,6 +40,10 @@ void SprayWait::send_files(string ip)
 {
 	char* content = new char[MAX_FILE_CONTENT]();
 	char* msg_to_send = new char[MAX_FILE_CONTENT]();
+	if(ip == dtn->MY_IP)
+	{
+		return;
+	}
 	for(vector<struct sw_struct>::iterator it = sw.begin(); it != sw.end(); ++it) 
 	{
 		bool used = false;
@@ -68,8 +70,8 @@ void SprayWait::send_files(string ip)
 			memset(content, 0, MAX_FILE_CONTENT);
 			memset(msg_to_send, 0, MAX_FILE_CONTENT);
 			log_info(log, "Sending file: %s to %s\n", it->filename, ip.c_str());
-			convert_file_to_bytes(FILES_DIR, filename, content);
-			strcpy(msg_to_send, "FILE_SW ");
+			convert_file_to_bytes(FILES_DIR, it->filename, content);
+			strcpy(msg_to_send, "SW_FILE ");
 			strcat(msg_to_send, it->filename);
 			strcat(msg_to_send, " ");
 			strcat(msg_to_send, it->send_addr);
@@ -131,7 +133,7 @@ void SprayWait::handler_reveived_data(std::string &ip_from, char *buffer, size_t
 		log_warn(log, "recv from 0.0.0.0 !\n");
 	}
 
-	if(strncmp("FILE_SW", buffer, 7))
+	if(strncmp("SW_FILE", buffer, 7) == 0)
 	{
 		printf("I'm getting file\n");
 		string msg(buffer, buffer + size);

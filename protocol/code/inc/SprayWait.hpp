@@ -31,7 +31,7 @@ class SprayWait : public Forward
 		void fake_broadcast(std::string &msg);
 		void send_files(std::string ip);
 	public:
-		SprayWait(Dtn *dtn, Log &log, char* send_addr, char* filename, int nbcopy);
+		SprayWait(Dtn *dtn, Log &log, char* filename, char* send_addr, int nbcopy);
 		~SprayWait();
 		void start_forwarding(int *end);
 		void handler_reveived_data(std::string &ip_from, char *buffer, size_t size);

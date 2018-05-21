@@ -25,7 +25,7 @@ class Dtn
 		std::mutex peers_mutex;
 
 	public:
-		std::string MY_IP = "192.168.2.1"; // TODO maintenant en dur
+		std::string MY_IP = "192.168.2.2"; // TODO maintenant en dur
 		Dtn(uint network_id, int my_id, Log &log);
 		Dtn(uint network_id, Log &log);
 		Dtn(uint network_id, Log &log, char* send_address, char* filename, int nbcopy);
