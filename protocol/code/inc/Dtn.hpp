@@ -17,16 +17,16 @@ void signal_handler(int sig);
 class Dtn 
 {
 	private:
-		Log			 	&log;
-		Communication 	*comm;
-		Protocol 		*protocol;
-		Forward 		*forward;
+		Log &log;
+		Communication *comm;
+		Protocol *protocol;
+		Forward *forward;
 		std::map<std::string, peer_s*> peers;
 		std::mutex peers_mutex;
 
 	public:
-		std::string MY_IP = "192.168.2.1"; // TODO maintenant en dur
-		const char* FILES_DIR = "/home/pi/files/"; // TODO maintenant en dur
+		std::string MY_IP = "192.168.2.1"; 
+		const char* FILES_DIR = "/home/pi/files/"; 
 		const int MAX_FILES = 32;
 		const int MAX_FILE_CONTENT = 2048;
 		Dtn(uint network_id, int my_id, Log &log);

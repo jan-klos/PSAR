@@ -18,14 +18,11 @@
 
 using namespace std;
 
-const char* FILES_DIR = "/home/pi/files/";
-const int MAX_FILES = 32;
-const int MAX_FILE_CONTENT = 128;
 using namespace std;
 string files_hashes;
 map<string, string> files_map;
-string* files_hashes_arr = new string[MAX_FILES]();
-string* files_diff = new string[MAX_FILES]();
+string* files_hashes_arr = new string[dtn->MAX_FILES]();
+string* files_diff = new string[dtn->MAX_FILES]();
 
 Epidemic::Epidemic(Dtn *dtn, Log &log): dtn(dtn), log(log)
 {
@@ -44,7 +41,7 @@ void Epidemic::get_files_hashes()
 	files_hashes = "LIST ";
 	char hash[MD5_DIGEST_LENGTH];
 	int i = 0;
-	if((dir = opendir(FILES_DIR)) != NULL)
+	if((dir = opendir(dtn->FILES_DIR)) != NULL)
 	{
 	  	while((ent = readdir(dir)) != NULL) 
 	  	{
@@ -52,7 +49,7 @@ void Epidemic::get_files_hashes()
 	  		{
 	  			continue;
 	  		}
-			get_file_hash(FILES_DIR, ent->d_name, hash);
+			get_file_hash(dtn->FILES_DIR, ent->d_name, hash);
 			string tmp(hash, MD5_DIGEST_LENGTH);
 			files_hashes_arr[i] = tmp; 
 		    files_hashes.append(" ").append(files_hashes_arr[i]);
@@ -72,9 +69,9 @@ void Epidemic::get_files_diff(string neighbour_list)
 {
 	get_files_hashes();
 	int i;
-	fill_n(files_diff, MAX_FILES, "");
+	fill_n(files_diff, dtn->MAX_FILES, "");
 	const char* filename;
-	for(i = 0; i < MAX_FILES; i++)
+	for(i = 0; i < dtn->MAX_FILES; i++)
 	{
 		if(files_hashes_arr[i].empty())
 		{
@@ -97,7 +94,6 @@ void Epidemic::start_forwarding(int *end)
 	this_thread::sleep_for(chrono::seconds(2));
 	/*log_info(log, "Broadcasting %d times with interval of %dms\n",
 			BROADCAST_LIMIT, BROADCAST_DELAY_MSEC);
-
 	while(!*end && cpt <= BROADCAST_LIMIT)
 	{
 		string msg = "BROADCAST_TEST" + to_string(cpt);
@@ -105,7 +101,6 @@ void Epidemic::start_forwarding(int *end)
 		cpt++;
 		this_thread::sleep_for(chrono::milliseconds(BROADCAST_DELAY_MSEC));
 	}
-
 	log_info(log, "Broadcasting done\n");
 	broadcast_files_list();*/
 }
@@ -147,19 +142,19 @@ void Epidemic::handler_reveived_data(string &ip_from, char *buffer, size_t size)
 	{
 		string neighbour_list(buffer, buffer + size);
 		get_files_diff(neighbour_list);
-		char* content = new char[MAX_FILE_CONTENT]();
-		char* msg_to_send = new char[MAX_FILE_CONTENT]();
-		for(i = 0; i < MAX_FILES; i++) 	
+		char* content = new char[dtn->MAX_FILE_CONTENT]();
+		char* msg_to_send = new char[dtn->MAX_FILE_CONTENT]();
+		for(i = 0; i < dtn->MAX_FILES; i++) 	
 		{
 			if(files_diff[i].empty())
 			{
 				continue;
 			}
-			memset(content, 0, MAX_FILE_CONTENT);
-			memset(msg_to_send, 0, MAX_FILE_CONTENT);
+			memset(content, 0, dtn->MAX_FILE_CONTENT);
+			memset(msg_to_send, 0, dtn->MAX_FILE_CONTENT);
 			const char* filename = files_map.find(files_diff[i])->second.c_str();
 			log_info(log, "Sending file: %s to %s\n", filename, ip_from.c_str());
-			convert_file_to_bytes(FILES_DIR, filename, content);
+			convert_file_to_bytes(dtn->FILES_DIR, filename, content);
 			strcpy(msg_to_send, "FILE ");
 			strcat(msg_to_send, filename);
 			strcat(msg_to_send, " ");
@@ -173,7 +168,7 @@ void Epidemic::handler_reveived_data(string &ip_from, char *buffer, size_t size)
 	else if(strncmp("FILE", buffer, 4) == 0)
 	{
 		string msg(buffer, buffer + size);
-		create_file(FILES_DIR, msg);
+		create_file(dtn->FILES_DIR, msg);
 
 		broadcast_files_list();
 	}
@@ -203,4 +198,3 @@ void Epidemic::handler_disconnected_peer(peer_t &peer)
 {
 	log_info(log, "Epidemic: %s disconnected\n", peer.ip.c_str());
 }
- 
