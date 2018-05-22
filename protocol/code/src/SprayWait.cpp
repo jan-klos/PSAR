@@ -80,9 +80,7 @@ void SprayWait::send_files(string ip)
 			strcat(msg_to_send, " ");
 			strcat(msg_to_send, content);
 			strcat(msg_to_send, "\0");
-			printf("wysylam: %s %d %s\n", msg_to_send, strlen(msg_to_send), ip.c_str());
 			dtn->getProtocol()->peer_sendto(dtn->get_map().find(ip)->second, msg_to_send, strlen(msg_to_send));
-			printf("wyslane\n");
 			it->n /= 2;
 			it->used_addr.push_back(ip);
 		}
@@ -135,7 +133,6 @@ void SprayWait::handler_reveived_data(std::string &ip_from, char *buffer, size_t
 
 	if(strncmp("SW_FILE", buffer, 7) == 0)
 	{
-		printf("I'm getting file\n");
 		string msg(buffer, buffer + size);
 		struct sw_struct s;
 		create_file_sw(dtn->FILES_DIR, msg, &s);
@@ -145,7 +142,10 @@ void SprayWait::handler_reveived_data(std::string &ip_from, char *buffer, size_t
 		{
 			s.delivered = true;
 		}
-		if(s.delivered) printf("delivered\n");
+		if(s.delivered) 
+		{
+			log_info(log, "File delivered");
+		}
 		sw.push_back(s);
 	}
 

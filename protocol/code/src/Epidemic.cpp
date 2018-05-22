@@ -94,9 +94,8 @@ void Epidemic::start_forwarding(int *end)
 {
 	int cpt = 1;
 
-	this_thread::sleep_for(chrono::seconds(5));
-
-	log_info(log, "Broadcasting %d times with interval of %dms\n",
+	this_thread::sleep_for(chrono::seconds(2));
+	/*log_info(log, "Broadcasting %d times with interval of %dms\n",
 			BROADCAST_LIMIT, BROADCAST_DELAY_MSEC);
 
 	while(!*end && cpt <= BROADCAST_LIMIT)
@@ -108,7 +107,7 @@ void Epidemic::start_forwarding(int *end)
 	}
 
 	log_info(log, "Broadcasting done\n");
-	broadcast_files_list();
+	broadcast_files_list();*/
 }
 
 void Epidemic::real_broadcast(string &msg)

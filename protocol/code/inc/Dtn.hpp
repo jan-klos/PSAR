@@ -25,7 +25,7 @@ class Dtn
 		std::mutex peers_mutex;
 
 	public:
-		std::string MY_IP = "192.168.2.2"; // TODO maintenant en dur
+		std::string MY_IP = "192.168.2.1"; // TODO maintenant en dur
 		const char* FILES_DIR = "/home/pi/files/"; // TODO maintenant en dur
 		const int MAX_FILES = 32;
 		const int MAX_FILE_CONTENT = 2048;
