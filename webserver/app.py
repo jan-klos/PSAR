@@ -42,8 +42,11 @@ def add_file():
             util.upload_file(request.files["file"])
             conf = messages.file_uploaded_conf
     elif "sync_files_submit" in request.form:
-    	protocol.sync_files()
+    	protocol.epidemicsync_files()
     	conf = messages.sync_files_conf
+    elif "listen_sw_submit" in request.form:
+	conf = messages.listen_sw_conf;
+	protocol.sw_listen()
     elif "wlan0_submit" in request.form:
         protocol.interface = "wlan0"
         print protocol.interface
@@ -61,9 +64,7 @@ def my_send_file(file_name):
             socket.inet_pton(socket.AF_INET, send_address)
         except socket.error:
             return show_file(file_name, error=messages.ip_addr_err)
-        protocol.send_file(file_name, send_address)
-	if send_address == "0.0.0.0":
-	    return show_file(file_name, conf=messages.listen_sw_conf)	
+        protocol.sw_send_file(file_name, send_address)
     elif "download_file_submit" in request.form:
         return send_file(settings.FILES_PATH + file_name, attachment_filename=file_name, as_attachment=True)
     return show_file(file_name, conf=messages.file_sent_conf)

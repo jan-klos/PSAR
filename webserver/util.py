@@ -81,13 +81,16 @@ class Protocol(object):
         self.obj = lib.Protocol_new()
 
     # Spray & Wait
-    def send_file(self, file_name, address_dest):
+    def sw_listen(self):
+	self.sw_send_file(settings.LISTEN_FILE, settings.LISTEN_IP)
+
+    def sw_send_file(self, file_name, address_dest):
         lib.Protocol_send_file(self.obj, 
             ctypes.c_char_p(self.interface),
             ctypes.c_char_p(file_name), 
             ctypes.c_char_p(str(address_dest)))
 
     # Epidemic
-    def sync_files(self):
+    def epidemic_sync_files(self):
         lib.Protocol_sync_files(self.obj, 
             ctypes.c_char_p(self.interface))
