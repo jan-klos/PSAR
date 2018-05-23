@@ -42,7 +42,7 @@ def add_file():
             util.upload_file(request.files["file"])
             conf = messages.file_uploaded_conf
     elif "sync_files_submit" in request.form:
-    	protocol.epidemicsync_files()
+    	protocol.epidemic_sync_files()
     	conf = messages.sync_files_conf
     elif "listen_sw_submit" in request.form:
 	conf = messages.listen_sw_conf;
