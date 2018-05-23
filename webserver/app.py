@@ -62,6 +62,8 @@ def my_send_file(file_name):
         except socket.error:
             return show_file(file_name, error=messages.ip_addr_err)
         protocol.send_file(file_name, send_address)
+	if send_address == "0.0.0.0":
+	    return show_file(file_name, conf=messages.listen_sw_conf)	
     elif "download_file_submit" in request.form:
         return send_file(settings.FILES_PATH + file_name, attachment_filename=file_name, as_attachment=True)
     return show_file(file_name, conf=messages.file_sent_conf)

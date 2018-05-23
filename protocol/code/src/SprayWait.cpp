@@ -25,7 +25,7 @@ SprayWait::SprayWait(Dtn* dtn, Log& log, char* filename,
 	s.filename = filename;
 	s.send_addr = send_addr;
 	s.used_addr.push_back("0.0.0.0");
-	get_file_hash(FILES_DIR, filename, s.hash);
+	get_file_hash(dtn->FILES_DIR, filename, s.hash);
 	s.n = nbcopy;
 	sw.push_back(s);
 }
@@ -37,9 +37,9 @@ SprayWait::~SprayWait()
 
 void SprayWait::send_files(string ip)
 {
-	char* content = new char[MAX_FILE_CONTENT]();
-	char* msg_to_send = new char[MAX_FILE_CONTENT]();
-	if(ip == MY_IP)
+	char* content = new char[dtn->MAX_FILE_CONTENT]();
+	char* msg_to_send = new char[dtn->MAX_FILE_CONTENT]();
+	if(ip == dtn->MY_IP)
 	{
 		return;
 	}
@@ -66,10 +66,10 @@ void SprayWait::send_files(string ip)
 		}
 		if(used == false)
 		{
-			memset(content, 0, MAX_FILE_CONTENT);
-			memset(msg_to_send, 0, MAX_FILE_CONTENT);
+			memset(content, 0, dtn->MAX_FILE_CONTENT);
+			memset(msg_to_send, 0, dtn->MAX_FILE_CONTENT);
 			log_info(log, "Sending file: %s to %s\n", it->filename, ip.c_str());
-			convert_file_to_bytes(FILES_DIR, it->filename, content);
+			convert_file_to_bytes(dtn->FILES_DIR, it->filename, content);
 			strcpy(msg_to_send, "SW_FILE ");
 			strcat(msg_to_send, it->filename);
 			strcat(msg_to_send, " ");
@@ -94,7 +94,7 @@ void SprayWait::start_forwarding(int *end)
 
 	this_thread::sleep_for(chrono::seconds(5));
 
-	log_info(log, "Broadcasting %d times with interval of %dms\n",
+	/*log_info(log, "Broadcasting %d times with interval of %dms\n",
 			BROADCAST_LIMIT, BROADCAST_DELAY_MSEC);
 
 	while(!*end && cpt <= BROADCAST_LIMIT)
@@ -105,7 +105,7 @@ void SprayWait::start_forwarding(int *end)
 		this_thread::sleep_for(chrono::milliseconds(BROADCAST_DELAY_MSEC));
 	}
 
-	log_info(log, "Broadcasting done\n");
+	log_info(log, "Broadcasting done\n");*/
 }
 
 void SprayWait::real_broadcast(string &msg)
@@ -134,10 +134,10 @@ void SprayWait::handler_reveived_data(std::string &ip_from, char *buffer, size_t
 	{
 		string msg(buffer, buffer + size);
 		struct sw_struct s;
-		create_file_sw(FILES_DIR, msg, &s);
+		create_file_sw(dtn->FILES_DIR, msg, &s);
 		s.used_addr.push_back(ip_from);
-		get_file_hash(FILES_DIR, filename, s.hash);
-		if(strcmp(MY_IP.c_str(), s.send_addr) == 0)
+		get_file_hash(dtn->FILES_DIR, filename, s.hash);
+		if(strcmp(dtn->MY_IP.c_str(), s.send_addr) == 0)
 		{
 			s.delivered = true;
 		}

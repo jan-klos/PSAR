@@ -21,12 +21,13 @@ using namespace std;
 using namespace std;
 string files_hashes;
 map<string, string> files_map;
-string* files_hashes_arr = new string[dtn->MAX_FILES]();
-string* files_diff = new string[dtn->MAX_FILES]();
+string* files_hashes_arr;
+string* files_diff;
 
 Epidemic::Epidemic(Dtn *dtn, Log &log): dtn(dtn), log(log)
 {
-
+	files_hashes_arr = new string[dtn->MAX_FILES]();
+	files_diff = new string[dtn->MAX_FILES]();
 }
 
 Epidemic::~Epidemic()
@@ -101,8 +102,8 @@ void Epidemic::start_forwarding(int *end)
 		cpt++;
 		this_thread::sleep_for(chrono::milliseconds(BROADCAST_DELAY_MSEC));
 	}
-	log_info(log, "Broadcasting done\n");
-	broadcast_files_list();*/
+	log_info(log, "Broadcasting done\n");*/
+	broadcast_files_list();
 }
 
 void Epidemic::real_broadcast(string &msg)
@@ -163,6 +164,7 @@ void Epidemic::handler_reveived_data(string &ip_from, char *buffer, size_t size)
 			dtn->getProtocol()->peer_sendto(dtn->get_map().find(ip_from)->second, msg_to_send, strlen(msg_to_send));
 		}
 		//delete [] content; delete [] msg_to_send;
+		broadcast_files_list();
 	}
 
 	else if(strncmp("FILE", buffer, 4) == 0)
